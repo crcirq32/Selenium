@@ -37,7 +37,7 @@ driver.get('https://www.linkedin.com/jobs/')
 
 # Search for jobs
 search_box = driver.find_element(By.CLASS_NAME, 'jobs-search-box__text-input')
-search_box.send_keys('Remote')  # You can replace 'Software Engineer' with your desired job title
+search_box.send_keys('Remote')  # Replace 'Remote' with desired job title
 search_box.send_keys(Keys.RETURN)
 
 # Wait until search results are loaded
@@ -60,6 +60,9 @@ for job in jobs:
     except Exception as e:
         print(f"Could not apply for job: {e}")
         continue
+        
 #TODO: 
-#Create a while loop that will recursive click "next" button
+#Create a while loop that will recursively click "next" button
+#next_button = driver.find_element(By.XPATH, "//button[contains(@class, 'Next')]")
 #Create a action to "submit-application"
+#easy_apply_button = driver.find_element(By.XPATH, "//button[contains(@class, 'Submit application')]")
