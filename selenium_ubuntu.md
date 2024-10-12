@@ -1,5 +1,5 @@
 #This may be out of order, it needs to be revised:
-Computers are the worst. 
+Steps are there, but I take no responsibility for broken systems. 
 
 Let's list the steps that are required to setup Selenium on Ubuntu 24.04
 1) install selenium with git - either source or sudo apt install python3-selenium
