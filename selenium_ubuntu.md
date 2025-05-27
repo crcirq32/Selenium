@@ -1,7 +1,4 @@
-#This may be out of order, it needs to be revised:
-Steps are there, but I take no responsibility for broken systems. 
-
-Let's list the steps that are required to setup Selenium on Ubuntu 24.04
+Steps required to setup Selenium on Ubuntu 24.04
 1) install selenium with git - either source or sudo apt install python3-selenium
 2) install geckodriver - firefox see link
 3) install webdrivermanager - see link
@@ -9,55 +6,49 @@ Let's list the steps that are required to setup Selenium on Ubuntu 24.04
 6) Test Webdriver, Firefox, Geckodrivermanager and selenium work:
 
 
-```
-# selenium 4
-from selenium import webdriver
-#Creates webdriver instance for firefox
-from selenium.webdriver.firefox.service import Service as FirefoxService
-#imports Geckodriver
-from webdriver_manager.firefox import GeckoDriverManager
-
-#test to see if instance is created: Pop-up will show it's working.
-driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-```
-
-
-https://github.com/SeleniumHQ/selenium
-```
-git clone https://www.github.com/selenium/SeleniumHQ/selenium.git
-```
+References:
 pypi.org/project/selenium/#files
 https://www.zenrows.com/blog/selenium-python-web-scraping#getting-started
 
-Install geckodriver on mozilla
-https://dev.to/eugenedorfling/installing-the-firefox-web-driver-on-linux-for-selenium-d45
+```
+git clone https://www.github.com/selenium/SeleniumHQ/selenium.git
+```
 
+```
+https://www.zenrows.com/blog/selenium-python-web-scraping#getting-started
+```
+Install geckodriver on mozilla
+```
+https://dev.to/eugenedorfling/installing-the-firefox-web-driver-on-linux-for-selenium-d45
+```
+---
+
+Install GeckoDriver on Mozilla
 ```
 mv ~/Downloads/geckodriver-v0.35.0-linux64.tar.gz .
-gzip -d  Downloads/geckodriver-v0.35.0-linux64.tar.gz
-tar -C /usr/local/bin -xvf  Downloads/geckodriver-v0.35.0-linux64.tar.gz
-#Will extract in the /usr/local/bin
-```
-
-```
-This may be necessary:
+gzip -d  ./geckodriver-v0.35.0-linux64.tar.gz
+tar -C /usr/local/bin -xvf  geckodriver-v0.35.0-linux64.tar.gz
+#This may be necessary Make sure to append to current PATH
 export PATH=$PATH:<path of geckodriver>
 ```
 
+3) Download webdriver_manager https://github.com/SergeyPirogov/webdriver_manager
+Unable to locate driver error:
+selenium.dev/documentation/webdrivermanager/troubleshooting/errors/driver_location
 
-1)download selenium
-2)download geckodriver & add to PATH
-3)download webdriver_manager https://github.com/SergeyPirogov/webdriver_manager
-	 Unable to locate driver error:
-	 selenium.dev/documentation/webdrivermanager/troubleshooting/errors/driver_location
-	 
-	 gzip -d 
-	 tar -xvf webdriver_manger-4.0.2
-	 python setup.py build
-	 python setup.py install
-
-Firefox can not be a snap: https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04#:%7E:text=Installing%20Firefox%20via%20Apt%20(Not%20Snap)&text=You%20add%20the%20Mozilla%20Team,%2C%20bookmarks%2C%20and%20other%20data.
-
+Install Webdriver-manager:	 
+```
+wget https://github.com/SergeyPirogov/webdriver_manager
+gzip -d 
+tar -xvf webdriver_manger-4.0.2
+cd web webdriver_manger
+python3 setup.py build
+python3 setup.py install
+```
+Disclaimer: Firefox can not be a snap:
+```
+https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04#:%7E:text=Installing%20Firefox%20via%20Apt%20(Not%20Snap)&text=You%20add%20the%20Mozilla%20Team,%2C%20bookmarks%2C%20and%20other%20data.
+```
 Fix firefox:
 ```
 Step 1: Uninstall the Firefox Snap:
@@ -78,23 +69,22 @@ Pin-Priority: 1000
 Package: firefox*
 Pin: release o=Ubuntu
 Pin-Priority: -1' | sudo tee /etc/apt/preferences.d/mozilla
+```
+Step 6: Finally, use APT to remove Ubuntu’s pretend Firefox DEB (if still present) and install from Mozilla’s repository:
 
-Step 6: Finally, use APT to remove Ubuntu’s pretend Firefox DEB (if still present) and installed the real-deal from Mozilla’s repository:
+```
 sudo apt update && sudo apt remove firefox
 sudo apt install firefox
 ```
-sudo snap remove firefox
 
-
-
-now to build:
+Tests:
 ```
-# selenium 4
 from selenium import webdriver
+#Creates webdriver instance for firefox
 from selenium.webdriver.firefox.service import Service as FirefoxService
+#imports Geckodriver
 from webdriver_manager.firefox import GeckoDriverManager
 
-#will open a window for firefox: 
+#test to see if instance is created: Pop-up will show it's working.
 driver = webdriver.Firefox(service=FirefoxService(GeckoDriverManager().install()))
-
 ```
